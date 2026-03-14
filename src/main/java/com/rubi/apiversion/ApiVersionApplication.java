@@ -15,8 +15,9 @@ public class ApiVersionApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApiVersionApplication.class, args);
 	}
-
 }
+
+// ApiVersionController will showcase about api versioning.
 
 @RestController
 class ApiVersionController {
@@ -37,7 +38,6 @@ class ApiVersionController {
 				Map.of("userid", 103, "username", "Anonymous", "url", "http://localhost:8080/users?api-version=1.0")
 		);
 	}
-
 }
 
 record User(int userid, String username) {
