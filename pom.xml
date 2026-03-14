@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.rubi</groupId>
-    <artifactId>api-version</artifactId>
+    <artifactId>spring7-features</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>api-version</name>
-    <description>api-version</description>
+    <name>Spring 7 Features</name>
+    <description>Spring 7 Features</description>
     <url/>
     <licenses>
         <license/>
@@ -33,6 +33,19 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-webauthn</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
     </dependencies>
 
