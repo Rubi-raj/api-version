@@ -39,7 +39,7 @@ public class SpringSecurity {
 				));
 	}
 
-	// Note:- For pass key goto this usr to register passkey first http://localhost:8080/webauthn/register
+	// Note:- For pass key goto this URL to register passkey first http://localhost:8080/webauthn/register
 
 	@Bean
 	InMemoryUserDetailsManager inMemoryUserDetailsManager() {

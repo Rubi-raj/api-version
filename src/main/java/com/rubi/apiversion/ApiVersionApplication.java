@@ -2,6 +2,9 @@ package com.rubi.apiversion;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,8 +25,17 @@ public class ApiVersionApplication {
 @RestController
 class ApiVersionController {
 
+	private final ApplicationEventPublisher applicationEventPublisher;
+
+	ApiVersionController(ApplicationEventPublisher applicationEventPublisher) {
+		this.applicationEventPublisher = applicationEventPublisher;
+	}
+
 	@GetMapping(value = "/users", version = "1.1")
 	public Collection<User> getUsers() {
+
+		applicationEventPublisher.publishEvent(new User(101, "Rubi"));
+
 		return List.of(
 				new User(101, "Rubiraj Amutha"),
 				new User(102, "Anand")
@@ -41,4 +53,20 @@ class ApiVersionController {
 }
 
 record User(int userid, String username) {
+}
+
+@Component
+class UserAudit {
+	@EventListener
+	void audit(User user) {
+		System.out.println("User audit event triggered: " + user);
+	}
+}
+
+@Component
+class UserNotification {
+	@EventListener
+	void notify(User user) {
+		System.out.println("User Notification triggered: " + user);
+	}
 }
