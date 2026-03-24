@@ -1,9 +1,13 @@
 package com.rubi.apiversion;
 
+import org.springframework.beans.factory.BeanRegistrar;
+import org.springframework.beans.factory.BeanRegistry;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +16,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+@Import(BeanRegistrar.class)
 @SpringBootApplication
 public class ApiVersionApplication {
 

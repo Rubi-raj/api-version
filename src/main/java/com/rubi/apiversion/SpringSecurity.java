@@ -9,9 +9,14 @@ import org.springframework.security.config.annotation.authorization.EnableMultiF
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.authority.FactorGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsPasswordService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+
+import javax.sql.DataSource;
 
 @EnableMultiFactorAuthentication(authorities = {
 		FactorGrantedAuthority.PASSWORD_AUTHORITY,
@@ -49,6 +54,21 @@ public class SpringSecurity {
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+	}
+
+	// This will migrate the user password encryption to latest encryption Eg:- Bcrypt current latest.
+	@Bean
+	UserDetailsPasswordService userDetailsPasswordService(JdbcUserDetailsManager manager) {
+		return (user, newPassword) -> {
+			UserDetails userDetails = User.withUserDetails(user).password(newPassword).build();
+			manager.updateUser(userDetails);
+			return userDetails;
+		};
+	}
+
+	@Bean
+	JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
+		return new JdbcUserDetailsManager(dataSource);
 	}
 
 }
